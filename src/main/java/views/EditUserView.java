@@ -1,13 +1,14 @@
 package views;
-
+import controllers.EditUserController;
 import controllers.MainController;
-import controllers.UserCreationController;
 import controllers.UsersController;
-
+import models.UserProfile;
+import views.Utils;
 import javax.swing.*;
 import java.awt.*;
+import java.io.FileWriter;
 
-public class UserCreationView {
+public class EditUserView {
     private final JPanel panel;
     private final JTextField nameField;
     private final JTextField surnameField;
@@ -15,14 +16,14 @@ public class UserCreationView {
     private final JTextField weightField;
     private final JTextField heightField;
     private final MainController mainController;
-    private final UserCreationController userCreationController;
+    private final EditUserController editUserController;
 
-    public UserCreationView(MainController controller, UsersController usersController) {
+    public EditUserView(MainController controller, UsersController usersController) {
         this.mainController = controller;
-        userCreationController = new UserCreationController(this, usersController);
+        editUserController = new EditUserController(mainController, this, usersController);
         panel = new JPanel(new GridBagLayout());
         Utils.setupModernUI();
-        JLabel titleLabel = new JLabel("Create New User");
+        JLabel titleLabel = new JLabel("Edit User");
         titleLabel.setFont(new Font("Arial", Font.BOLD, 22));
 
         nameField = new JTextField(15);
@@ -32,7 +33,7 @@ public class UserCreationView {
         heightField = new JTextField(5);
 
         JButton saveButton = new JButton("Save");
-        saveButton.addActionListener(e -> userCreationController.saveUser());
+        saveButton.addActionListener(e -> editUserController.saveEditedUser());
 
         JButton cancelButton = new JButton("Cancel");
         cancelButton.addActionListener(e -> showUsersView());
@@ -61,36 +62,24 @@ public class UserCreationView {
         return panel;
     }
 
-    private void showUsersView(){
+    public void showUsersView() {
         mainController.showUsersView();
-        clearFields();
     }
 
-    public void clearFields() {
-        nameField.setText("");
-        surnameField.setText("");
-        ageField.setText("");
-        weightField.setText("");
-        heightField.setText("");
-    }
+    public UserProfile getUserProfileFromFields() {
+        String name = nameField.getText();
+        String surname = surnameField.getText();
+        int age = Integer.parseInt(ageField.getText());
+        double weight = Double.parseDouble(weightField.getText());
+        double height = Double.parseDouble(heightField.getText());
 
-    public MainController getMainController() {
-        return mainController;
+        return new UserProfile(name, surname, age, weight, height);
     }
-
-    public JTextField getNameField() {
-        return nameField;
-    }
-    public JTextField getSurnameField() {
-        return surnameField;
-    }
-    public JTextField getAgeField() {
-        return ageField;
-    }
-    public JTextField getWeightField() {
-        return weightField;
-    }
-    public JTextField getHeightField() {
-        return heightField;
+    public void setUserProfileFields(UserProfile userProfile) {
+        nameField.setText(userProfile.getName());
+        surnameField.setText(userProfile.getSurname());
+        ageField.setText(String.valueOf(userProfile.getAge()));
+        weightField.setText(String.valueOf(userProfile.getWeight()));
+        heightField.setText(String.valueOf(userProfile.getHeight()));
     }
 }

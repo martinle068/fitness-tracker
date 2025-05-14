@@ -1,8 +1,9 @@
 import controllers.MainController;
+import views.MainView;
 
 public class Main {
     public static void main(String[] args) {
-        MainController mainController = new MainController();
-        mainController.start();
+        MainView mainView = new MainView();
+        mainView.start();
     }
 }

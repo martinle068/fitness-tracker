@@ -1,6 +1,7 @@
 package views;
 
 import controllers.MainController;
+import controllers.UsersController;
 import javax.swing.*;
 import java.awt.*;
 
@@ -8,17 +9,13 @@ public class MainView {
     private JFrame frame;
     private JPanel mainPanel;
     private CardLayout cardLayout;
-    private final UsersView usersView;
-    private final UserCreationView userCreationView; // Add UserCreationView
     private JButton userProfileButton;
     private JButton exercisesButton;
     private JButton exitButton;
-    private final MainController controller;
-
-    public MainView(MainController controller) {
-        this.controller = controller;
-        this.usersView = new UsersView(controller);
-        this.userCreationView = new UserCreationView(controller); // Initialize UserCreationView
+    private final MainController mainController;
+    
+    public MainView() {
+        this.mainController = new MainController(this);
         initialize();
     }
 
@@ -48,11 +45,12 @@ public class MainView {
         mainPanel.add(menuPanel, "MainMenu");
 
         // Create users panel (User Profiles View)
-        JPanel usersPanel = usersView.getPanel();
+        JPanel usersPanel = this.mainController.usersView.getPanel();
         mainPanel.add(usersPanel, "UsersView");
 
         // Add UserCreationView panel
-        mainPanel.add(userCreationView.getPanel(), "UserCreationView"); // Add UserCreationView to CardLayout
+        mainPanel.add(this.mainController.userCreationView.getPanel(), "UserCreationView"); // Add UserCreationView to CardLayout
+        mainPanel.add(this.mainController.editUserView.getPanel(), "EditUserView"); // Add EditUserView to CardLayout
     }
 
     private JPanel createMenuPanel() {
@@ -92,7 +90,7 @@ public class MainView {
     }
 
     private void addListeners() {
-        userProfileButton.addActionListener(e -> controller.showUsersView());
+        userProfileButton.addActionListener(e -> mainController.showUsersView());
         exercisesButton.addActionListener(e -> JOptionPane.showMessageDialog(frame, "Exercises feature coming soon!"));
         exitButton.addActionListener(e -> System.exit(0));
     }
@@ -101,7 +99,7 @@ public class MainView {
         cardLayout.show(mainPanel, viewName);
     }
 
-    public void displayMainMenu() {
+    public void start() {
         frame.setVisible(true);
     }
 
