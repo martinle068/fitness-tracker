@@ -9,6 +9,7 @@ import views.UserCreationView;
 import views.UsersView;
 import views.ExercisesView;
 import views.Utils;
+import views.WorkoutsView;
 import models.Exercise;
 import views.EditExerciseView;
 
@@ -22,6 +23,7 @@ public class MainController {
     public final ExercisesController exercisesController;
     public final ExerciseCreationView exerciseCreationView;
     public final EditExerciseView editExerciseView;
+    public final WorkoutsView workoutsView;
     public UserProfile selectedUserProfile = null;
     public Exercise selectedExercise = null;
 
@@ -35,6 +37,7 @@ public class MainController {
         this.exercisesView = new ExercisesView(this, exercisesController); // Initialize ExercisesView
         this.exerciseCreationView = new ExerciseCreationView(this, exercisesController); // Initialize ExerciseCreationView
         this.editExerciseView = new EditExerciseView(this, exercisesController); // Initialize EditExerciseView
+        this.workoutsView = new WorkoutsView(this, usersController); // Initialize WorkoutsView
     }
 
     public void showMainMenu() {
@@ -67,5 +70,9 @@ public class MainController {
         this.selectedExercise = exercise; // Store the selected exercise
         editExerciseView.setExerciseFields(exercise); // Set the exercise in the EditExerciseView
         mainView.showView("EditExerciseView");
+    }
+
+    public void showWorkoutsView() {
+        mainView.showView("WorkoutsView");
     }
 }

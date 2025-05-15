@@ -1,0 +1,43 @@
+[
+  {
+    "workouts": [],
+    "user": "hola amigo"
+  },
+  {
+    "workouts": [],
+    "user": "ahoj jaksemas"
+  },
+  {
+    "workouts": [],
+    "user": "emma koroptev"
+  },
+  {
+    "workouts": [],
+    "user": "tralaleo tralala"
+  },
+  {
+    "workouts": [
+      {
+        "date": "2025-05-02",
+        "exercises": [{
+          "sets": 3,
+          "muscleGroup": "back",
+          "name": "Bent Over Row",
+          "type": "Strength",
+          "repetitions": 10
+        }]
+      },
+      {
+        "date": "2025-05-01",
+        "exercises": [{
+          "sets": 3,
+          "muscleGroup": "shoulders",
+          "name": "Arnold Press",
+          "type": "Strength",
+          "repetitions": 10
+        }]
+      }
+    ],
+    "user": "Martin Le"
+  }
+]

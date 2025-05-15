@@ -10,6 +10,7 @@ public class MainView {
     private CardLayout cardLayout;
     private JButton userProfileButton;
     private JButton exercisesButton;
+    private JButton workoutsButton;
     private JButton exitButton;
     private final MainController mainController;
 
@@ -53,6 +54,7 @@ public class MainView {
         mainPanel.add(this.mainController.exercisesView.getPanel(), "ExercisesView");
         mainPanel.add(this.mainController.exerciseCreationView.getPanel(), "ExerciseCreationView");
         mainPanel.add(this.mainController.editExerciseView.getPanel(), "EditExerciseView");
+        mainPanel.add(this.mainController.workoutsView.getPanel(), "WorkoutsView");
     }
 
     private JPanel createMenuPanel() {
@@ -70,11 +72,13 @@ public class MainView {
 
         userProfileButton = createButton("User Profiles");
         exercisesButton = createButton("Exercises");
+        workoutsButton = createButton("Workouts");
         exitButton = createButton("Exit");
 
         panel.add(titleLabel, gbc);
         panel.add(userProfileButton, gbc);
         panel.add(exercisesButton, gbc);
+        panel.add(workoutsButton, gbc);
         panel.add(exitButton, gbc);
 
         return panel;
@@ -94,6 +98,7 @@ public class MainView {
     private void addListeners() {
         userProfileButton.addActionListener(e -> mainController.showUsersView());
         exercisesButton.addActionListener(e -> mainController.showExercisesView());
+        workoutsButton.addActionListener(e -> mainController.showWorkoutsView());
         exitButton.addActionListener(e -> System.exit(0));
     }
 

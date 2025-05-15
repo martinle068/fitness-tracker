@@ -15,6 +15,7 @@ import models.UserProfile;
 public class Utils {
     public static final String USER_PROFILES_PATH = "src/main/java/data/userProfiles.csv";
     public static final String EXERCISES_PATH = "src/main/java/data/exercises.csv";
+    public static final String WORKOUTS_PATH = "src/main/java/data/workouts.json";
 
     static void setupModernUI() {
         try {
