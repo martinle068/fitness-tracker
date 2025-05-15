@@ -1,7 +1,6 @@
 package views;
 
 import controllers.MainController;
-import controllers.UsersController;
 import javax.swing.*;
 import java.awt.*;
 
@@ -13,7 +12,7 @@ public class MainView {
     private JButton exercisesButton;
     private JButton exitButton;
     private final MainController mainController;
-    
+
     public MainView() {
         this.mainController = new MainController(this);
         initialize();
@@ -49,8 +48,11 @@ public class MainView {
         mainPanel.add(usersPanel, "UsersView");
 
         // Add UserCreationView panel
-        mainPanel.add(this.mainController.userCreationView.getPanel(), "UserCreationView"); // Add UserCreationView to CardLayout
-        mainPanel.add(this.mainController.editUserView.getPanel(), "EditUserView"); // Add EditUserView to CardLayout
+        mainPanel.add(this.mainController.userCreationView.getPanel(), "UserCreationView");
+        mainPanel.add(this.mainController.editUserView.getPanel(), "EditUserView");
+        mainPanel.add(this.mainController.exercisesView.getPanel(), "ExercisesView");
+        mainPanel.add(this.mainController.exerciseCreationView.getPanel(), "ExerciseCreationView");
+        mainPanel.add(this.mainController.editExerciseView.getPanel(), "EditExerciseView");
     }
 
     private JPanel createMenuPanel() {
@@ -91,7 +93,7 @@ public class MainView {
 
     private void addListeners() {
         userProfileButton.addActionListener(e -> mainController.showUsersView());
-        exercisesButton.addActionListener(e -> JOptionPane.showMessageDialog(frame, "Exercises feature coming soon!"));
+        exercisesButton.addActionListener(e -> mainController.showExercisesView());
         exitButton.addActionListener(e -> System.exit(0));
     }
 
