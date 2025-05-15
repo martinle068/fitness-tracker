@@ -7,8 +7,6 @@ import views.ExercisesView;
 import views.MainView;
 import views.UserCreationView;
 import views.UsersView;
-import views.ExercisesView;
-import views.Utils;
 import views.WorkoutsView;
 import models.Exercise;
 import views.EditExerciseView;
@@ -73,6 +71,8 @@ public class MainController {
     }
 
     public void showWorkoutsView() {
+        // Load data into the workouts view
+        workoutsView.loadData();
         mainView.showView("WorkoutsView");
     }
 }

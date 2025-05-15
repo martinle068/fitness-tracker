@@ -1,7 +1,4 @@
 package controllers;
-
-import java.io.IOException;
-
 import javax.swing.JOptionPane;
 
 import views.EditUserView;
@@ -10,13 +7,10 @@ import views.Utils;
 public class EditUserController {
     private final MainController mainController;
     private final EditUserView editUserView;
-    private final UsersController usersController;
 
-    public EditUserController(MainController mainController, EditUserView editUserView,
-            UsersController usersController) {
+    public EditUserController(MainController mainController, EditUserView editUserView) {
         this.mainController = mainController;
         this.editUserView = editUserView;
-        this.usersController = usersController;
     }
 
     public void saveEditedUser() {

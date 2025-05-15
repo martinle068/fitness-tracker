@@ -20,7 +20,7 @@ public class EditExerciseView {
 
     public EditExerciseView(MainController controller, ExercisesController exercisesController) {
         this.mainController = controller;
-        this.editExerciseController = new EditExerciseController(mainController, this, exercisesController);
+        this.editExerciseController = new EditExerciseController(mainController, this);
 
         panel = new JPanel(new GridBagLayout());
         Utils.setupModernUI();

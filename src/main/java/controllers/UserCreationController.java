@@ -5,7 +5,6 @@ import views.UserCreationView;
 import views.Utils;
 
 import javax.swing.*;
-import java.io.FileWriter;
 import java.io.IOException;
 
 public class UserCreationController {

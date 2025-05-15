@@ -9,13 +9,10 @@ import views.EditExerciseView;
 public class EditExerciseController {
     private final MainController mainController;
     private final EditExerciseView editExerciseView;
-    private final ExercisesController exercisesController;
 
-    public EditExerciseController(MainController mainController, EditExerciseView editExerciseView,
-            ExercisesController exercisesController) {
+    public EditExerciseController(MainController mainController, EditExerciseView editExerciseView) {
         this.mainController = mainController;
         this.editExerciseView = editExerciseView;
-        this.exercisesController = exercisesController;
     }
 
     public void saveEditedExercise() {

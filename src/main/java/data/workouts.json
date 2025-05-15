@@ -1,36 +1,29 @@
 [
   {
-    "workouts": [],
-    "user": "hola amigo"
-  },
-  {
-    "workouts": [],
-    "user": "ahoj jaksemas"
-  },
-  {
-    "workouts": [],
-    "user": "emma koroptev"
-  },
-  {
-    "workouts": [],
-    "user": "tralaleo tralala"
-  },
-  {
     "workouts": [
       {
         "date": "2025-05-02",
-        "exercises": [{
-          "sets": 3,
-          "muscleGroup": "back",
-          "name": "Bent Over Row",
-          "type": "Strength",
-          "repetitions": 10
-        }]
+        "exercises": [
+          {
+            "sets": 4,
+            "muscleGroup": "full body",
+            "name": "Bear Crawl",
+            "type": "Endurance",
+            "repetitions": 15
+          },
+          {
+            "sets": 3222,
+            "muscleGroup": "shoulders",
+            "name": "Arnold Press",
+            "type": "Strength",
+            "repetitions": 10
+          }
+        ]
       },
       {
         "date": "2025-05-01",
         "exercises": [{
-          "sets": 3,
+          "sets": 30,
           "muscleGroup": "shoulders",
           "name": "Arnold Press",
           "type": "Strength",
@@ -39,5 +32,47 @@
       }
     ],
     "user": "Martin Le"
+  },
+  {
+    "workouts": [],
+    "user": "emma koroptev"
+  },
+  {
+    "workouts": [],
+    "user": "hola amigo"
+  },
+  {
+    "workouts": [],
+    "user": "ahoj jaksemas"
+  },
+  {
+    "workouts": [{
+      "date": "2025-05-01",
+      "exercises": [{
+        "sets": 3000,
+        "muscleGroup": "Unknown",
+        "name": "Face Pull",
+        "type": "Unknown",
+        "repetitions": 12
+      }]
+    }],
+    "user": "matejka tralala"
+  },
+  {
+    "workouts": [],
+    "user": "tralaleo tralala"
+  },
+  {
+    "workouts": [{
+      "date": "2025-05-01",
+      "exercises": [{
+        "sets": 3,
+        "muscleGroup": "shoulders",
+        "name": "Dumbbell Shoulder Press",
+        "type": "Strength",
+        "repetitions": 100
+      }]
+    }],
+    "user": "matejicek tralala"
   }
 ]

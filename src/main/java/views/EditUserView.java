@@ -3,10 +3,8 @@ import controllers.EditUserController;
 import controllers.MainController;
 import controllers.UsersController;
 import models.UserProfile;
-import views.Utils;
 import javax.swing.*;
 import java.awt.*;
-import java.io.FileWriter;
 
 public class EditUserView {
     private final JPanel panel;
@@ -20,7 +18,7 @@ public class EditUserView {
 
     public EditUserView(MainController controller, UsersController usersController) {
         this.mainController = controller;
-        editUserController = new EditUserController(mainController, this, usersController);
+        editUserController = new EditUserController(mainController, this);
         panel = new JPanel(new GridBagLayout());
         Utils.setupModernUI();
         JLabel titleLabel = new JLabel("Edit User");

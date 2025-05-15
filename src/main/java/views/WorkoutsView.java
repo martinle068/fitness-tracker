@@ -6,14 +6,11 @@ import models.UserProfile;
 import javax.swing.*;
 import controllers.MainController;
 import controllers.UsersController;
+
 import java.awt.*;
 import java.time.*;
 import java.util.*;
 import java.util.List;
-
-import org.json.*;
-import java.nio.file.*;
-import java.io.*;
 
 public class WorkoutsView {
     private final MainController mainController;
@@ -36,11 +33,6 @@ public class WorkoutsView {
 
         // Setup user selection dropdown
         userComboBox = new JComboBox<>();
-        for (Enumeration<UserProfile> e = usersController.usersList.elements(); e.hasMoreElements();) {
-            UserProfile user = e.nextElement();
-            userComboBox.addItem(user);
-            workoutsPerUser.putIfAbsent(user, new HashMap<>());
-        }
 
         userComboBox.addActionListener(e -> {
             currentUser = (UserProfile) userComboBox.getSelectedItem();
@@ -93,8 +85,8 @@ public class WorkoutsView {
         if (userComboBox.getItemCount() > 0) {
             currentUser = (UserProfile) userComboBox.getSelectedItem();
         }
-        loadWorkoutsFromFile();
 
+        loadData();
         updateCalendar();
     }
 
@@ -194,7 +186,7 @@ public class WorkoutsView {
         dialog.setLocationRelativeTo(panel);
         dialog.setVisible(true);
 
-        saveWorkoutsToFile();
+        Utils.saveWorkoutsToFile(workoutsPerUser);
     }
 
     private Exercise promptForExercise() {
@@ -244,107 +236,16 @@ public class WorkoutsView {
         return null;
     }
 
-    private UserProfile findUserByUsername(String name, String surname) {
-        for (UserProfile user : workoutsPerUser.keySet()) {
-            if (user.getName().equals(name) && user.getSurname().equals(surname)) {
-                return user;
-            }
+    public void loadData() {
+        userComboBox.removeAllItems();
+        workoutsPerUser.clear();
+
+        for (Enumeration<UserProfile> e = usersController.usersList.elements(); e.hasMoreElements();) {
+            UserProfile user = e.nextElement();
+            userComboBox.addItem(user);
+            workoutsPerUser.putIfAbsent(user, new HashMap<>());
         }
-        return null;
-
-    }
-
-    private void loadWorkoutsFromFile() {
-        Path path = Path.of(Utils.WORKOUTS_PATH);
-        if (!Files.exists(path))
-            return;
-
-        try {
-            String content = Files.readString(path);
-            JSONArray usersArray = new JSONArray(content);
-
-            for (int i = 0; i < usersArray.length(); i++) {
-                JSONObject userObject = usersArray.getJSONObject(i);
-                String name;
-                String surname;
-                String[] nameParts = userObject.getString("user").split(" ");
-                if (nameParts.length == 2) {
-                    name = nameParts[0];
-                    surname = nameParts[1];
-                } else {
-                    continue; // Skip if the format is unexpected
-                }
-
-                UserProfile user = findUserByUsername(name, surname);
-                if (user == null)
-                    continue;
-
-                Map<LocalDate, List<Exercise>> userWorkouts = workoutsPerUser.computeIfAbsent(user,
-                        k -> new HashMap<>());
-
-                JSONArray datesArray = userObject.getJSONArray("workouts");
-                for (int j = 0; j < datesArray.length(); j++) {
-                    JSONObject dateObject = datesArray.getJSONObject(j);
-                    LocalDate date = LocalDate.parse(dateObject.getString("date"));
-
-                    List<Exercise> exercises = new ArrayList<>();
-                    JSONArray exArray = dateObject.getJSONArray("exercises");
-                    for (int k = 0; k < exArray.length(); k++) {
-                        JSONObject exJson = exArray.getJSONObject(k);
-                        Exercise ex = new Exercise(
-                                exJson.getString("name"),
-                                exJson.getString("type"),
-                                exJson.getString("muscleGroup"),
-                                exJson.getInt("repetitions"),
-                                exJson.getInt("sets"));
-                        exercises.add(ex);
-                    }
-
-                    userWorkouts.put(date, exercises);
-                }
-            }
-
-        } catch (IOException | JSONException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void saveWorkoutsToFile() {
-        JSONArray usersArray = new JSONArray();
-
-        for (Map.Entry<UserProfile, Map<LocalDate, List<Exercise>>> entry : workoutsPerUser.entrySet()) {
-            JSONObject userObject = new JSONObject();
-            userObject.put("user", entry.getKey().getName() + " " + entry.getKey().getSurname()); // or getId()
-
-            JSONArray datesArray = new JSONArray();
-            for (Map.Entry<LocalDate, List<Exercise>> dateEntry : entry.getValue().entrySet()) {
-                JSONObject dateObject = new JSONObject();
-                dateObject.put("date", dateEntry.getKey().toString());
-
-                JSONArray exercisesArray = new JSONArray();
-                for (Exercise ex : dateEntry.getValue()) {
-                    JSONObject exJson = new JSONObject();
-                    exJson.put("name", ex.getName());
-                    exJson.put("type", ex.getType());
-                    exJson.put("muscleGroup", ex.getMuscleGroup());
-                    exJson.put("repetitions", ex.getRepetitions());
-                    exJson.put("sets", ex.getSets());
-                    exercisesArray.put(exJson);
-                }
-
-                dateObject.put("exercises", exercisesArray);
-                datesArray.put(dateObject);
-            }
-
-            userObject.put("workouts", datesArray);
-            usersArray.put(userObject);
-        }
-
-        try {
-            Files.writeString(Path.of(Utils.WORKOUTS_PATH), usersArray.toString(2));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        Utils.loadWorkoutsFromFile(workoutsPerUser);
     }
 
     public JPanel getPanel() {

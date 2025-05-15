@@ -4,11 +4,20 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import models.Exercise;
 
 import javax.swing.*;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import models.UserProfile;
 
@@ -143,5 +152,107 @@ public class Utils {
                 String.valueOf(exercise.getSets()));
     }
     
+    public static void saveWorkoutsToFile(Map<UserProfile, Map<LocalDate, List<Exercise>>> workoutsPerUser) {
+        JSONArray usersArray = new JSONArray();
+
+        for (Map.Entry<UserProfile, Map<LocalDate, List<Exercise>>> entry : workoutsPerUser.entrySet()) {
+            JSONObject userObject = new JSONObject();
+            userObject.put("user", entry.getKey().getName() + " " + entry.getKey().getSurname()); // or getId()
+
+            JSONArray datesArray = new JSONArray();
+            for (Map.Entry<LocalDate, List<Exercise>> dateEntry : entry.getValue().entrySet()) {
+                JSONObject dateObject = new JSONObject();
+                dateObject.put("date", dateEntry.getKey().toString());
+
+                JSONArray exercisesArray = new JSONArray();
+                for (Exercise ex : dateEntry.getValue()) {
+                    JSONObject exJson = new JSONObject();
+                    exJson.put("name", ex.getName());
+                    exJson.put("type", ex.getType());
+                    exJson.put("muscleGroup", ex.getMuscleGroup());
+                    exJson.put("repetitions", ex.getRepetitions());
+                    exJson.put("sets", ex.getSets());
+                    exercisesArray.put(exJson);
+                }
+
+                dateObject.put("exercises", exercisesArray);
+                datesArray.put(dateObject);
+            }
+
+            userObject.put("workouts", datesArray);
+            usersArray.put(userObject);
+        }
+
+        try {
+            Files.writeString(Path.of(Utils.WORKOUTS_PATH), usersArray.toString(2));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static UserProfile findUserByUsername(Map<UserProfile, Map<LocalDate, List<Exercise>>> workoutsPerUser, String name, String surname) {
+        for (UserProfile user : workoutsPerUser.keySet()) {
+            if (user.getName().equals(name) && user.getSurname().equals(surname)) {
+                return user;
+            }
+        }
+        return null;
+
+    }
+
+    public static void loadWorkoutsFromFile(Map<UserProfile, Map<LocalDate, List<Exercise>>> workoutsPerUser) {
+        Path path = Path.of(Utils.WORKOUTS_PATH);
+        if (!Files.exists(path))
+            return;
+
+        try {
+            String content = Files.readString(path);
+            JSONArray usersArray = new JSONArray(content);
+
+            for (int i = 0; i < usersArray.length(); i++) {
+                JSONObject userObject = usersArray.getJSONObject(i);
+                String name;
+                String surname;
+                String[] nameParts = userObject.getString("user").split(" ");
+                if (nameParts.length == 2) {
+                    name = nameParts[0];
+                    surname = nameParts[1];
+                } else {
+                    continue; // Skip if the format is unexpected
+                }
+
+                UserProfile user = findUserByUsername(workoutsPerUser,name, surname);
+                if (user == null)
+                    continue;
+
+                Map<LocalDate, List<Exercise>> userWorkouts = workoutsPerUser.computeIfAbsent(user,
+                        k -> new HashMap<>());
+
+                JSONArray datesArray = userObject.getJSONArray("workouts");
+                for (int j = 0; j < datesArray.length(); j++) {
+                    JSONObject dateObject = datesArray.getJSONObject(j);
+                    LocalDate date = LocalDate.parse(dateObject.getString("date"));
+
+                    List<Exercise> exercises = new ArrayList<>();
+                    JSONArray exArray = dateObject.getJSONArray("exercises");
+                    for (int k = 0; k < exArray.length(); k++) {
+                        JSONObject exJson = exArray.getJSONObject(k);
+                        Exercise ex = new Exercise(
+                                exJson.getString("name"),
+                                exJson.getString("type"),
+                                exJson.getString("muscleGroup"),
+                                exJson.getInt("repetitions"),
+                                exJson.getInt("sets"));
+                        exercises.add(ex);
+                    }
+
+                    userWorkouts.put(date, exercises);
+                }
+            }
+
+        } catch (IOException | JSONException e) {
+            e.printStackTrace();
+        }
+    }
     
 }
