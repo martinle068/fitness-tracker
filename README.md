@@ -1,5 +1,5 @@
 # fitness-tracker
-fitness tracker in java
+Fitness tracker in java
 
 ### Prerequisites
 
@@ -22,9 +22,13 @@ This is a simple fitness tracker app, that allows users to manage their workouts
 ## Usage
 
 1. Launch the application.
+   ![alt text](img/home-screen.png)
 2. Create a new user profile.
+   ![alt text](img/user-profiles.png)
 3. Add exercises with details - type, muscle group, and reps/sets.
+    ![alt text](img/exercises.png)
 4. Create a workout by selecting a date and adding exercises.
+   ![alt text](img/workouts.png)
 5. Track your progress by viewing past workouts on the calendar.
 
 
