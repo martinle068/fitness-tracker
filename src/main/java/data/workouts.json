@@ -1,5 +1,13 @@
 [
   {
+    "workouts": [],
+    "user": "emma koroptev"
+  },
+  {
+    "workouts": [],
+    "user": "hola amigo"
+  },
+  {
     "workouts": [
       {
         "date": "2025-05-02",
@@ -13,6 +21,13 @@
           },
           {
             "sets": 3222,
+            "muscleGroup": "shoulders",
+            "name": "Arnold Press",
+            "type": "Strength",
+            "repetitions": 10
+          },
+          {
+            "sets": 3,
             "muscleGroup": "shoulders",
             "name": "Arnold Press",
             "type": "Strength",
@@ -35,28 +50,7 @@
   },
   {
     "workouts": [],
-    "user": "emma koroptev"
-  },
-  {
-    "workouts": [],
-    "user": "hola amigo"
-  },
-  {
-    "workouts": [],
     "user": "ahoj jaksemas"
-  },
-  {
-    "workouts": [{
-      "date": "2025-05-01",
-      "exercises": [{
-        "sets": 3000,
-        "muscleGroup": "Unknown",
-        "name": "Face Pull",
-        "type": "Unknown",
-        "repetitions": 12
-      }]
-    }],
-    "user": "matejka tralala"
   },
   {
     "workouts": [],
@@ -74,5 +68,18 @@
       }]
     }],
     "user": "matejicek tralala"
+  },
+  {
+    "workouts": [{
+      "date": "2025-05-01",
+      "exercises": [{
+        "sets": 3000,
+        "muscleGroup": "Unknown",
+        "name": "Face Pull",
+        "type": "Unknown",
+        "repetitions": 12
+      }]
+    }],
+    "user": "matejka tralala"
   }
 ]

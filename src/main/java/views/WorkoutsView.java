@@ -2,16 +2,18 @@ package views;
 
 import models.Exercise;
 import models.UserProfile;
-
 import javax.swing.*;
 import controllers.MainController;
 import controllers.UsersController;
-
 import java.awt.*;
 import java.time.*;
 import java.util.*;
 import java.util.List;
 
+/**
+ * WorkoutsView is responsible for displaying the UI for managing workouts.
+ * It allows the user to select a user, navigate through months, and manage exercises for each day.
+ */
 public class WorkoutsView {
     private final MainController mainController;
     private final UsersController usersController;
@@ -90,6 +92,9 @@ public class WorkoutsView {
         updateCalendar();
     }
 
+    /**
+     * Updates the calendar display based on the current month and selected user.
+     */
     private void updateCalendar() {
         calendarPanel.removeAll();
         monthLabel.setText(currentMonth.getMonth().toString() + " " + currentMonth.getYear());
@@ -122,6 +127,11 @@ public class WorkoutsView {
         calendarPanel.repaint();
     }
 
+    /**
+     * Opens a dialog to edit exercises for a specific date.
+     *
+     * @param date the date for which to edit exercises
+     */
     private void openDayEditor(LocalDate date) {
         Map<LocalDate, List<Exercise>> workouts = workoutsPerUser.computeIfAbsent(currentUser, k -> new HashMap<>());
         JDialog dialog = new JDialog((Frame) null, "Workout on " + date, true);
@@ -189,6 +199,11 @@ public class WorkoutsView {
         Utils.saveWorkoutsToFile(workoutsPerUser);
     }
 
+    /**
+     * Prompts the user to select or create an exercise.
+     *
+     * @return the selected or created exercise
+     */
     private Exercise promptForExercise() {
         Exercise exercise = (Exercise) JOptionPane.showInputDialog(
                 panel,
@@ -201,6 +216,12 @@ public class WorkoutsView {
         return exercise;
     }
 
+    /**
+     * Prompts the user to edit an existing exercise.
+     *
+     * @param existing the existing exercise to edit
+     * @return the edited exercise
+     */
     private Exercise promptForExercise(Exercise existing) {
         JTextField nameField = new JTextField(existing.getName());
         JTextField typeField = new JTextField(existing.getType());
@@ -236,6 +257,9 @@ public class WorkoutsView {
         return null;
     }
 
+    /**
+     * Loads user data and workouts from the file.
+     */
     public void loadData() {
         userComboBox.removeAllItems();
         workoutsPerUser.clear();

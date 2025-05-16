@@ -3,10 +3,12 @@ package controllers;
 import models.UserProfile;
 import views.UserCreationView;
 import views.Utils;
-
 import javax.swing.*;
 import java.io.IOException;
 
+/**
+ * Controller for creating and saving user profiles.
+ */
 public class UserCreationController {
     private final UserCreationView view;
     private final UsersController usersController;
@@ -15,6 +17,10 @@ public class UserCreationController {
         this.view = userCreationView;
         this.usersController = usersController;
     }
+
+    /**
+     * Saves the user profile created in the view to a CSV file and updates the users list.
+     */
     public void saveUser() {
         try {
             String name = view.getNameField().getText();

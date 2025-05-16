@@ -3,14 +3,15 @@ package controllers;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-
 import javax.swing.JOptionPane;
 import javax.swing.DefaultListModel;
 import javax.swing.JPanel;
-
 import models.UserProfile;
 import views.Utils;
 
+/**
+ * Controller for managing user profiles.
+ */
 public class UsersController {
     public DefaultListModel<UserProfile> usersList;
 
@@ -18,10 +19,16 @@ public class UsersController {
         usersList = new DefaultListModel<>();
     }
 
+    /**
+     * Loads user profiles from a CSV file into the users list.
+     *
+     * @param panel    The panel to show error messages.
+     * @param fileName The name of the CSV file to load.
+     */
     public void loadUsersFromCSV(JPanel panel, String fileName) {
         // Clear the existing list before loading new data
         usersList.clear();
-        
+
         try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
             String line;
             while ((line = br.readLine()) != null) {
@@ -45,9 +52,13 @@ public class UsersController {
         }
     }
 
+    /**
+     * Deletes a user profile from the users list and updates the CSV file.
+     *
+     * @param user The user profile to delete.
+     */
     public void deleteUser(UserProfile user) {
         usersList.removeElement(user);
-        Utils.saveUsersToCSV(Utils.USER_PROFILES_PATH, usersList); 
+        Utils.saveUsersToCSV(Utils.USER_PROFILES_PATH, usersList);
     }
-
 }

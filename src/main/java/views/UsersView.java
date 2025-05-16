@@ -3,10 +3,13 @@ package views;
 import controllers.MainController;
 import controllers.UsersController;
 import models.UserProfile;
-
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * UsersView is responsible for displaying the list of user profiles.
+ * It allows the user to create, edit, and delete user profiles.
+ */
 public class UsersView {
     private final JPanel panel;
     private final MainController mainController;
@@ -101,6 +104,11 @@ public class UsersView {
         panel.add(buttonPanel, BorderLayout.SOUTH);
     }
 
+    /**
+     * Returns the main panel of the UsersView.
+     *
+     * @return the main panel
+     */
     public JPanel getPanel() {
         return panel;
     }

@@ -1,11 +1,13 @@
 package controllers;
 
 import views.Utils;
-
 import javax.swing.JOptionPane;
-
 import views.EditExerciseView;
 
+/**
+ * EditExerciseController is responsible for handling the logic of editing an exercise.
+ * It interacts with the EditExerciseView and the MainController to save the edited exercise.
+ */
 public class EditExerciseController {
     private final MainController mainController;
     private final EditExerciseView editExerciseView;
@@ -14,7 +16,10 @@ public class EditExerciseController {
         this.mainController = mainController;
         this.editExerciseView = editExerciseView;
     }
-
+    
+    /**
+     * Saves the edited exercise by updating the CSV file and refreshing the exercises view.
+     */
     public void saveEditedExercise() {
         try {
             Utils.updateExerciseInCSV(Utils.EXERCISES_PATH, this.mainController.selectedExercise,

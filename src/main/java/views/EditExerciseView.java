@@ -4,10 +4,13 @@ import controllers.EditExerciseController;
 import controllers.ExercisesController;
 import controllers.MainController;
 import models.Exercise;
-
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * EditExerciseView is responsible for displaying the UI for editing an exercise.
+ * It allows the user to input exercise details and save them.
+ */
 public class EditExerciseView {
     private final JPanel panel;
     private final JTextField nameField;
@@ -38,7 +41,7 @@ public class EditExerciseView {
         saveButton.addActionListener(e -> editExerciseController.saveEditedExercise());
 
         JButton cancelButton = new JButton("Cancel");
-        cancelButton.addActionListener(e -> showExercisesView());
+        cancelButton.addActionListener(e -> mainController.showExercisesView());
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 0;
@@ -60,14 +63,20 @@ public class EditExerciseView {
         panel.add(cancelButton, gbc);
     }
 
+    /**
+     * Returns the panel containing the edit exercise UI.
+     *
+     * @return the panel
+     */
     public JPanel getPanel() {
         return panel;
     }
 
-    public void showExercisesView() {
-        mainController.showExercisesView();
-    }
-
+    /**
+     * Retrieves the exercise details from the input fields and creates an Exercise object.
+     *
+     * @return the Exercise object with the input details
+     */
     public Exercise getExerciseFromFields() {
         String name = nameField.getText();
         String type = typeField.getText();
@@ -78,6 +87,11 @@ public class EditExerciseView {
         return new Exercise(name, type, muscleGroup, repetitions, sets);
     }
 
+    /**
+     * Sets the input fields with the details of the given exercise.
+     *
+     * @param exercise the Exercise object to set in the fields
+     */
     public void setExerciseFields(Exercise exercise) {
         nameField.setText(exercise.getName());
         typeField.setText(exercise.getType());

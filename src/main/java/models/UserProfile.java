@@ -1,5 +1,8 @@
 package models;
 
+/*
+ * Exercise class representing a workout exercise.
+ */
 public class UserProfile {
     private final String name;
     private final String surname;
@@ -15,22 +18,27 @@ public class UserProfile {
         this.height = height;
     }
 
+    // Getters for user profile properties
     public String getName() {
         return name;
     }
 
+    // Getters for user profile properties
     public String getSurname() {
         return surname;
     }
 
+    // Getters for user profile properties
     public int getAge() {
         return age;
     }
 
+    // Getters for user profile properties
     public double getWeight() {
         return weight;
     }
 
+    // Getters for user profile properties
     public double getHeight() {
         return height;
     }

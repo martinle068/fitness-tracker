@@ -10,22 +10,25 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import models.Exercise;
-
 import javax.swing.*;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import models.UserProfile;
 
+/**
+ * Utility class for handling file operations and UI setup.
+ */
 public class Utils {
+    // Paths to CSV and JSON files
     public static final String USER_PROFILES_PATH = "src/main/java/data/userProfiles.csv";
     public static final String EXERCISES_PATH = "src/main/java/data/exercises.csv";
     public static final String WORKOUTS_PATH = "src/main/java/data/workouts.json";
 
+    /*
+     * Sets the look and feel of the UI to the system's default.
+     */
     static void setupModernUI() {
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -34,6 +37,9 @@ public class Utils {
         }
     }
 
+    /*
+     * Saves a user profile to a CSV file.
+     */
     public static void saveUserToCSV(String fileName, UserProfile userProfile) throws IOException {
         try (FileWriter writer = new FileWriter(fileName, true)) {
             writer.append(userProfile.getName()).append(",");
@@ -44,6 +50,9 @@ public class Utils {
         }
     }
 
+    /*
+     * Saves a list of user profiles to a CSV file.
+     */
     public static void saveUsersToCSV(String fileName, DefaultListModel<UserProfile> usersList) {
         try (FileWriter writer = new FileWriter(fileName)) {
             for (int i = 0; i < usersList.size(); i++) {
@@ -61,6 +70,9 @@ public class Utils {
         }
     }
 
+    /*
+     * Updates a user profile in a CSV file.
+     */
     public static void updateUserInCSV(String fileName, UserProfile oldUser, UserProfile newUser) {
         try {
             File file = new File(fileName);
@@ -84,6 +96,9 @@ public class Utils {
         }
     }
 
+    /*
+     * Converts a UserProfile object to a CSV string.
+     */
     private static String toCSV(UserProfile user) {
         return String.join(",",
                 user.getName(),
@@ -93,6 +108,9 @@ public class Utils {
                 String.valueOf(user.getHeight()));
     }
 
+    /*
+     * Saves an exercise to a CSV file.
+     */
     public static void saveExerciseToCSV(String fileName, Exercise exercise) throws IOException {
         try (FileWriter writer = new FileWriter(fileName, true)) {
             writer.append(exercise.getName()).append(",");
@@ -103,6 +121,9 @@ public class Utils {
         }
     }
 
+    /*
+     * Saves a list of exercises to a CSV file.
+     */
     public static void saveExercisesToCSV(String fileName, DefaultListModel<Exercise> exercisesList) {
         try (FileWriter writer = new FileWriter(fileName)) {
             for (int i = 0; i < exercisesList.size(); i++) {
@@ -119,6 +140,9 @@ public class Utils {
         }
     }
 
+    /*
+     * Updates an exercise in a CSV file.
+     */
     public static void updateExerciseInCSV(String fileName, Exercise oldExercise, Exercise newExercise) {
         try {
             File file = new File(fileName);
@@ -143,6 +167,9 @@ public class Utils {
         }
     }
 
+    /*
+     * Converts an Exercise object to a CSV string.
+     */
     private static String toCSV(Exercise exercise) {
         return String.join(",",
                 exercise.getName(),
@@ -152,6 +179,9 @@ public class Utils {
                 String.valueOf(exercise.getSets()));
     }
     
+    /*
+     * Saves workouts to a JSON file.
+     */
     public static void saveWorkoutsToFile(Map<UserProfile, Map<LocalDate, List<Exercise>>> workoutsPerUser) {
         JSONArray usersArray = new JSONArray();
 
@@ -190,6 +220,9 @@ public class Utils {
         }
     }
 
+    /*
+     * Finds a user by their name and surname in the workouts map.
+     */
     private static UserProfile findUserByUsername(Map<UserProfile, Map<LocalDate, List<Exercise>>> workoutsPerUser, String name, String surname) {
         for (UserProfile user : workoutsPerUser.keySet()) {
             if (user.getName().equals(name) && user.getSurname().equals(surname)) {
@@ -197,9 +230,11 @@ public class Utils {
             }
         }
         return null;
-
     }
 
+    /*
+     * Loads workouts from a JSON file into the workouts map.
+     */
     public static void loadWorkoutsFromFile(Map<UserProfile, Map<LocalDate, List<Exercise>>> workoutsPerUser) {
         Path path = Path.of(Utils.WORKOUTS_PATH);
         if (!Files.exists(path))

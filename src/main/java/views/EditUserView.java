@@ -6,6 +6,10 @@ import models.UserProfile;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * EditUserView is responsible for displaying the UI for editing a user profile.
+ * It allows the user to input user details and save them.
+ */
 public class EditUserView {
     private final JPanel panel;
     private final JTextField nameField;
@@ -34,7 +38,7 @@ public class EditUserView {
         saveButton.addActionListener(e -> editUserController.saveEditedUser());
 
         JButton cancelButton = new JButton("Cancel");
-        cancelButton.addActionListener(e -> showUsersView());
+        cancelButton.addActionListener(e -> mainController.showUsersView());
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 0;
@@ -56,14 +60,20 @@ public class EditUserView {
         panel.add(cancelButton, gbc);
     }
 
+    /**
+     * Returns the main panel of the EditUserView.
+     *
+     * @return the main panel
+     */
     public JPanel getPanel() {
         return panel;
     }
 
-    public void showUsersView() {
-        mainController.showUsersView();
-    }
-
+    /**
+     * Retrieves the user profile details from the input fields.
+     *
+     * @return a UserProfile object containing the input data
+     */
     public UserProfile getUserProfileFromFields() {
         String name = nameField.getText();
         String surname = surnameField.getText();
@@ -73,6 +83,10 @@ public class EditUserView {
 
         return new UserProfile(name, surname, age, weight, height);
     }
+    
+    /**
+     * Sets the input fields with the details of the provided user profile.
+     */
     public void setUserProfileFields(UserProfile userProfile) {
         nameField.setText(userProfile.getName());
         surnameField.setText(userProfile.getSurname());

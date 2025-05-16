@@ -2,15 +2,16 @@ package controllers;
 
 import models.Exercise;
 import views.Utils;
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+/**
+ * Controller for managing exercises.
+ */
 public class ExercisesController {
     public DefaultListModel<Exercise> exercisesList;
 
@@ -19,6 +20,12 @@ public class ExercisesController {
 
     }
 
+    /**
+     * Loads exercises from a CSV file into the exercises list.
+     *
+     * @param panel    The panel to show error messages.
+     * @param fileName The name of the CSV file to load.
+     */
     public void loadExercisesFromCSV(JPanel panel, String fileName) {
         exercisesList.clear();
 
@@ -44,6 +51,11 @@ public class ExercisesController {
         }
     }
 
+    /**
+     * Deletes an exercise from the exercises list and updates the CSV file.
+     *
+     * @param exercise The exercise to delete.
+     */
     public void deleteExercise(Exercise exercise) {
         exercisesList.removeElement(exercise);
         // Save the updated list to CSV

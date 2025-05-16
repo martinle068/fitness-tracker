@@ -3,10 +3,13 @@ package views;
 import controllers.ExercisesController;
 import controllers.ExerciseCreationController;
 import controllers.MainController;
-
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * ExerciseCreationView is responsible for displaying the UI for creating a new exercise.
+ * It allows the user to input exercise details and save them.
+ */
 public class ExerciseCreationView {
     private final JPanel panel;
     private final JTextField nameField;
@@ -59,11 +62,17 @@ public class ExerciseCreationView {
         panel.add(cancelButton, gbc);
     }
 
+    /**
+     * Returns to the ExercisesView.
+     */
     private void showExercisesView() {
         mainController.showExercisesView();
         clearFields();
     }
 
+    /**
+     * Clears the input fields in the ExerciseCreationView.
+     */
     public void clearFields() {
         nameField.setText("");
         typeField.setText("");
@@ -72,30 +81,65 @@ public class ExerciseCreationView {
         setsField.setText("");
     }
 
+    /**
+     * Returns the panel containing the exercise creation UI.
+     *
+     * @return the panel
+     */
     public JPanel getPanel() {
         return panel;
     }
 
+    /**
+     * Retrieves the exercise details from the input fields and creates an Exercise object.
+     *
+     * @return the Exercise object with the input details
+     */
     public JTextField getNameField() {
         return nameField;
     }
 
+    /**
+     * Retrieves the exercise type from the input field.
+     *
+     * @return the exercise type
+     */
     public JTextField getTypeField() {
         return typeField;
     }
 
+    /**
+     * Retrieves the muscle group from the input field.
+     *
+     * @return the muscle group
+     */
     public JTextField getMuscleGroupField() {
         return muscleGroupField;
     }
 
+    /**
+     * Retrieves the number of repetitions from the input field.
+     *
+     * @return the number of repetitions
+     */
     public JTextField getRepetitionsField() {
         return repetitionsField;
     }
 
+    /**
+     * Retrieves the number of sets from the input field.
+     *
+     * @return the number of sets
+     */
     public JTextField getSetsField() {
         return setsField;
     }
 
+    /**
+     * Returns the main controller associated with this view.
+     *
+     * @return the main controller
+     */
     public MainController getMainController() {
         return mainController;
     }

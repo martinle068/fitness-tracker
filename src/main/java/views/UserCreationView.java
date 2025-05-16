@@ -3,10 +3,14 @@ package views;
 import controllers.MainController;
 import controllers.UserCreationController;
 import controllers.UsersController;
-
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * UserCreationView is responsible for displaying the UI for creating a new user
+ * profile.
+ * It allows the user to input user details and save them.
+ */
 public class UserCreationView {
     private final JPanel panel;
     private final JTextField nameField;
@@ -57,15 +61,24 @@ public class UserCreationView {
         panel.add(cancelButton, gbc);
     }
 
+    /**
+     * Returns the main panel of the UserCreationView.
+     *
+     * @return the main panel
+     */
     public JPanel getPanel() {
         return panel;
     }
 
-    private void showUsersView(){
+    // Returns to the UsersView.
+    private void showUsersView() {
         mainController.showUsersView();
         clearFields();
     }
 
+    /**
+     * Clears the input fields in the UserCreationView.
+     */
     public void clearFields() {
         nameField.setText("");
         surnameField.setText("");
@@ -74,23 +87,59 @@ public class UserCreationView {
         heightField.setText("");
     }
 
-    public MainController getMainController() {
-        return mainController;
-    }
-
+    /**
+     * Returns the name field.
+     * 
+     * @return the name field
+     */
     public JTextField getNameField() {
         return nameField;
     }
+
+    /**
+     * 
+     * /**
+     * Returns the surname field.
+     *
+     * @return the surname field
+     */
     public JTextField getSurnameField() {
         return surnameField;
     }
+
+    /**
+     * Returns the age field.
+     *
+     * @return the age field
+     */
     public JTextField getAgeField() {
         return ageField;
     }
+
+    /**
+     * Returns the weight field.
+     *
+     * @return the weight field
+     */
     public JTextField getWeightField() {
         return weightField;
     }
+
+    /**
+     * Returns the height field.
+     *
+     * @return the height field
+     */
     public JTextField getHeightField() {
         return heightField;
+    }
+
+    /**
+     * Returns the main controller.
+     *
+     * @return the main controller
+     */
+    public MainController getMainController() {
+        return mainController;
     }
 }

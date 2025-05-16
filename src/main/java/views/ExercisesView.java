@@ -3,10 +3,13 @@ package views;
 import controllers.ExercisesController;
 import controllers.MainController;
 import models.Exercise;
-
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * ExercisesView is responsible for displaying the list of exercises.
+ * It allows the user to view, edit, and delete exercises.
+ */
 public class ExercisesView {
     private final JPanel panel;
     private final MainController mainController;
@@ -100,6 +103,9 @@ public class ExercisesView {
         panel.add(buttonPanel, BorderLayout.SOUTH);
     }
 
+    /**
+     * Returns the main panel of the ExercisesView.
+     */
     public JPanel getPanel() {
         return panel;
     }

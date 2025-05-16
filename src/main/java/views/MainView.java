@@ -4,6 +4,10 @@ import controllers.MainController;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * MainView is responsible for displaying the main menu of the application.
+ * It allows the user to navigate to different views such as User Profiles, Exercises, and Workouts.
+ */
 public class MainView {
     private JFrame frame;
     private JPanel mainPanel;
@@ -19,6 +23,7 @@ public class MainView {
         initialize();
     }
 
+    // Initializes the main view and sets up the UI components.
     private void initialize() {
         Utils.setupModernUI();
         setupFrame();
@@ -29,6 +34,7 @@ public class MainView {
         addListeners();
     }
 
+    // Sets up the main frame for the application.
     private void setupFrame() {
         frame = new JFrame("Fitness Tracker");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -36,6 +42,7 @@ public class MainView {
         frame.setLayout(new BorderLayout());
     }
 
+    // Sets up the card layout for the main panel, allowing for different views to be displayed.
     private void setupCardLayout() {
         cardLayout = new CardLayout();
         mainPanel = new JPanel(cardLayout);
@@ -57,6 +64,7 @@ public class MainView {
         mainPanel.add(this.mainController.workoutsView.getPanel(), "WorkoutsView");
     }
 
+    // Creates the main menu panel with buttons for navigation.
     private JPanel createMenuPanel() {
         JPanel panel = new JPanel(new GridBagLayout());
         panel.setBackground(new Color(230, 230, 230));
@@ -84,6 +92,7 @@ public class MainView {
         return panel;
     }
 
+    // Creates a button with specified text and styling.
     private JButton createButton(String text) {
         JButton button = new JButton(text);
         button.setPreferredSize(new Dimension(200, 50));
@@ -91,10 +100,12 @@ public class MainView {
         return button;
     }
 
+    // Centers the main frame on the screen.
     private void centerFrame() {
         frame.setLocationRelativeTo(null);
     }
 
+    // Adds action listeners to the buttons for navigation.
     private void addListeners() {
         userProfileButton.addActionListener(e -> mainController.showUsersView());
         exercisesButton.addActionListener(e -> mainController.showExercisesView());
@@ -102,15 +113,13 @@ public class MainView {
         exitButton.addActionListener(e -> System.exit(0));
     }
 
+    // Displays the main menu.
     public void showView(String viewName) {
         cardLayout.show(mainPanel, viewName);
     }
 
+    // Displays the main menu.
     public void start() {
-        frame.setVisible(true);
-    }
-
-    public void display() {
         frame.setVisible(true);
     }
 }
